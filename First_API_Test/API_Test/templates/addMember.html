@@ -1,25 +1,19 @@
-<!-- template/members.html-->
+<!-- templates/addMember.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title style="text-align: center;">Mitglierderliste</title>
+    <title style="text-align: center;">Mitglied hinzufügen</title>
 </head>
 <body>
     <div style="text-align: center;">
-        <h1>Alle Mitglieder</h2>                                 
-        <ul style="list-style-type: none; padding: 0;">
-            {% for member in members %}                            
-                <li >{{ member.id }} : {{ member.name }}</li>
-            {% endfor %}
-        </ul>
-        <a href="/add-Member">Neues Mitglied hinzugefügt</a>
+        <h1>Neues Mitlgied hinzufügen</h1>
+        <form action="/addMember" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" name="name" required>
+            <button type="submit">Hinzufügen</button>
+        </form>
+        <br>
+        <a href="/members-html">Zur Mitgliederliste</a>
     </div>
 </body>
 </html>
-
-
-
-
-
-
-
