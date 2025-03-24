@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, redirect
+from flask import Blueprint, jsonify, request, redirect, url_for
 
 members_api = Blueprint('members_api', __name__) 
 
@@ -23,4 +23,4 @@ def add_member_from():
     new_id = max((m['id'] for m in members), default=0) + 1
     new_member = {"id": new_id, "name": name}
     members.append(new_member)
-    return redirect('/members-html'), 201                         # '201' HTTP-Status für 'Created'
+    return redirect(url_for('show_members'))                   # weiterleiten zur member list               
