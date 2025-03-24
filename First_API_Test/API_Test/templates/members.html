@@ -9,7 +9,12 @@
         <h1>Alle Mitglieder</h2>                                 <!-- https://documentation.bloomreach.com/engagement/docs/jinja-syntax -->
         <ul style="list-style-type: none; padding: 0;">
             {% for member in members %}                            <!-- Jinja2-Syntax -->
-                <li >{{ member.id }} : {{ member.name }}</li>
+                <li>
+                    {{ member.id }} : {{ member.name }}
+                    <form method="POST" action="{{url_for('delete_member', member_id=member.id)}}" style="display: inline;">
+                        <button type="submit">🗑️ Löschen</button>
+                    </form>
+                </li>
             {% endfor %}
         </ul>
         <a href="/add-Member">Neues Mitglied hinzugefügt</a>
