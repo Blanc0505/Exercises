@@ -23,7 +23,7 @@ def getMember(name):
 
 @app.route('/delete-member/<int:member_id>', methods=['POST'])
 def delete_member(member_id):
-    global members  # Wichtig, damit du die globale Liste veränderst
+    global members 
     members = [m for m in members if m['id'] != member_id]
     return redirect(url_for('show_members'))
 
