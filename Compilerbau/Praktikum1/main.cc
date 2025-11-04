@@ -2,11 +2,15 @@
 #include <fstream>
 #include <cctype>
 #include <string>
+#include <vector>
 
 using std::cout;
 using std::cin;
 using std::cerr;
 using std::string;
+
+
+std::vector<string> keys = {"MODULE", "ARRAY", "BEGIN", "CHAR", "CONST", "DO", "ELSE", "ELSIF", "END", "FOR", "IF", "INTEGER", "OF", "PROCEDURE", "REAL", "REPEAT", "RETURN", "THEN", "TO", "TYPE", "UNTIL", "VAR", "WHILE"};
 
 void yyerror(string msg)
 {
@@ -56,6 +60,14 @@ void scan(std::istream& in, std::ostream& out)
             {
                 word_buff.push_back(static_cast<char>(c));
             } else {
+                for(const auto &key : keys)
+                {
+                   if(word_buff == key)
+                   {
+                        word_buff.clear();
+                        break;
+                   }
+                }
                 flush_ident(word_buff, out);
                 st = State::NORMAL;
                 if(c == '(' && in.peek() == '*')
@@ -78,6 +90,14 @@ void scan(std::istream& in, std::ostream& out)
 
     if(st == State::IDENT)
     {
+        for(const auto &key : keys)
+        {
+            if(word_buff == key)
+            {
+                word_buff.clear();
+                break;
+            }
+        }
         flush_ident(word_buff, out);
     }
 }
