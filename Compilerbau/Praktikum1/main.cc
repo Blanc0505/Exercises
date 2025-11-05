@@ -11,7 +11,7 @@ using std::string;
 
 
 std::vector<string> keys = {"MODULE", "ARRAY", "BEGIN", "CHAR", "CONST", "DO", "ELSE", "ELSIF", "END", "FOR", "IF", "INTEGER", "OF", "PROCEDURE", "REAL", "REPEAT", "RETURN", "THEN", "TO", "TYPE", "UNTIL", "VAR", "WHILE"};
-
+std::vector<string> keys_tokens = {"OR", "AND", "DIV", "MOD", "NOT"};
 void yyerror(string msg)
 {
     cerr << "error: " << msg << '\n';
@@ -68,6 +68,14 @@ void scan(std::istream& in, std::ostream& out)
                         break;
                    }
                 }
+                for(const auto &key : keys_tokens)
+                {
+                    if(word_buff == key)
+                    {
+                        word_buff.clear();
+                        break;
+                    }
+                }
                 flush_ident(word_buff, out);
                 st = State::NORMAL;
                 if(c == '(' && in.peek() == '*')
@@ -91,6 +99,14 @@ void scan(std::istream& in, std::ostream& out)
     if(st == State::IDENT)
     {
         for(const auto &key : keys)
+        {
+            if(word_buff == key)
+            {
+                word_buff.clear();
+                break;
+            }
+        }
+        for(const auto &key : keys_tokens)
         {
             if(word_buff == key)
             {
